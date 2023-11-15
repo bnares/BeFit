@@ -1,0 +1,60 @@
+﻿@using ArtGuard.Models.Domain;
+@using Newtonsoft.Json;
+@model ArtGuard.Models.DTO.DaneWykonanegoCwiczenia.DodajWykonaneCwiczenieDTO
+
+@{
+    ViewData["Title"] = "DodajCwiczenieDoSesjiTreningowej";
+    var cwiczenia = TempData["cwiczenia"] != null ? (List<Cwiczenie>) JsonConvert.DeserializeObject<List<Cwiczenie>>(TempData["cwiczenia"]!.ToString()!)! : new List<Cwiczenie> { };
+}
+
+<h1>DodajCwiczenieDoSesjiTreningowej</h1>
+
+<h4>DodajWykonaneCwiczenieDTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DodajCwiczenieDoSesjiTreningowej">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                
+                <fieldset>
+                    Exercise Name
+                    <select id="IdCwiczenia" name="IdCwiczenia" class="form-select">
+                        @foreach(var item in cwiczenia)
+                        {
+                            <option value="@item.Id">@item.Nazwa</option>
+                        }
+                        <a href="c:\users\user\source\repos\artguard\artguard\artguard\views\sesjatreningowa\seealltrainings.cshtml">c:\users\user\source\repos\artguard\artguard\artguard\views\sesjatreningowa\seealltrainings.cshtml</a>
+                    </select>
+                </fieldset>
+                @*<label asp-for="IdCwiczenia" class="control-label"></label>
+                <input asp-for="IdCwiczenia" class="form-control" />*@
+                <span asp-validation-for="IdCwiczenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ObciazenieWCwiczeniu" class="control-label"></label>
+                <input asp-for="ObciazenieWCwiczeniu" class="form-control" min="0" />
+                <span asp-validation-for="ObciazenieWCwiczeniu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LiczbaPowtorzen" class="control-label"></label>
+                <input asp-for="LiczbaPowtorzen" class="form-control" min="0"/>
+                <span asp-validation-for="LiczbaPowtorzen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LiczbaSerii" class="control-label"></label>
+                <input asp-for="LiczbaSerii" class="form-control" min="0"/>
+                <span asp-validation-for="LiczbaSerii" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

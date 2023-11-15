@@ -1,0 +1,67 @@
+﻿@using ArtGuard.Helpers;
+@using Newtonsoft.Json;
+
+@{
+    var notification = TempData["msg"] != null ? (Notification) JsonConvert.DeserializeObject<Notification>(TempData["msg"]!.ToString()!)! : null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ArtGuard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ArtGuard.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+</head>
+<body>
+   
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSite</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/Dashboard/Display">Dashboard</a></li>
+                @if (User.IsInRole("admin"))
+                {
+                    <li><a href="/Admin/Display">Admin Page</a></li>
+                    <li><a href="/Admin/DodajCwiczenie">Add Exercise</a></li>
+                    <li><a href="/Admin/WszystkieCwiczenia">Exercise List</a></li>
+                }
+                @if (User.IsInRole("admin") || User.IsInRole("user"))
+                {
+                    <li><a href="/SesjaTreningowa/SeeAllTrainings">See Trainings</a></li>
+                    
+                }
+                
+                <li><a href="/UserAuthentication/Logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ArtGuard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    @if(notification != null)
+    {
+        <script>
+            toastr["@notification.Type"]("@notification.Message")
+        </script>
+    }
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿@using System.Security.Claims;
+@model IEnumerable<ArtGuard.Models.Domain.DaneWykonanegoCwiczenia>
+
+@{
+    ViewData["Title"] = "PokazSzczegółySesjiTrenngowej";
+    int? id = TempData["idSesjiTreningowej"] != null ? (int)TempData["idSesjiTreningowej"]! : null;
+}
+
+<h1>Szczegóły Sesji Trenngowej</h1>
+
+
+@if(Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    
+                    @Html.DisplayNameFor(model => model.Cwiczenie.Nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ObciazenieWCwiczeniu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiczbaPowtorzen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LiczbaSerii)
+                </th>
+                <th>
+                    Action
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        
+                        @Html.DisplayFor(modelItem => item.Cwiczenie.Nazwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObciazenieWCwiczeniu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiczbaPowtorzen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LiczbaSerii)
+                    </td>
+                    <td>
+
+                        <a class="btn btn-info">Edytuj</a>
+                        <a class="btn btn-danger" asp-action="UsunCwiczenieSesjiTreningowej" asp-route-id="@item.Id" >Usun</a>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <h1>No Detail To Display</h1>
+    </div>
+}
+
+
+
+

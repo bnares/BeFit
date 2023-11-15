@@ -1,0 +1,23 @@
+﻿@using ArtGuard.Helpers;
+@using Newtonsoft.Json;
+
+@{
+    var notification = TempData["msg"] != null ? JsonConvert.DeserializeObject<Notification>(TempData["msg"]!.ToString()!) : null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+</head>
+<body>
+<h1>Welcome Admin i am only excexisbule throw admin panel</h1>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    @if (notification != null)
+    {
+            <script>
+                toastr["@notification.Type"]("@notification.Message")
+            </script>
+    }
+</body>

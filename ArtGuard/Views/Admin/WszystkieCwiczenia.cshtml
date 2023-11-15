@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ArtGuard.Models.Domain.Cwiczenie>
+
+@{
+    ViewData["Title"] = "WszystkieCwiczenia";
+}
+
+<h1>WszystkieCwiczenia</h1>
+
+<p>
+    <a asp-action="DodajCwiczenie" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Numer Id 
+            </th>
+            <th>
+               Nazwa
+            </th>
+            <th>Akcja</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwa)
+            </td>
+            <td>
+                    <a asp-action="UsunCwiczenie" asp-route-id="@item.Id" class="btn btn-danger">Usun</a>
+                <a asp-action="EdytujCwiczenie" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
